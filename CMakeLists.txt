@@ -26,7 +26,18 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS On)
 # export CMAKE_EXPORT_COMPILE_COMMANDS=1
 # it'll always then do this for you
 
+# Build type in-between debug + release
+# does not support assert-style of checking pre-conditions
+#set(CMAKE_BUILD_TYPE RelWithDebInfo)
+
 # we'll specify a target name, what we want to invoke
 # and then all the source files associated with it
 add_executable(lox)
 target_sources(lox PRIVATE src/driver.cpp)
+
+# building our library in isolation
+add_library(mmapfile)
+target_sources(mmapfile PRIVATE src/mmapfile.cpp)
+
+# tell lox that we depend on this library
+target_link_libraries(lox PRIVATE mmapfile)

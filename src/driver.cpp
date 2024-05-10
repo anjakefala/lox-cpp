@@ -5,6 +5,8 @@
 #include <sys/stat.h>   // struct stat, fstat
 #include <unistd.h>     // close
 #include <sys/mman.h>   // mmap, PROT_READ, MAP_PRIVATE, MAP_FAILED, munmap
+                        //
+#include "mmapfile.hpp"
 
 int main() {
 
@@ -27,7 +29,7 @@ int main() {
   // Map file onto memory
   // PROT_READ -> read-only mode
   // MAP_PRIVATE -> modifications should not be written back to original file
-  char* loxFileMap = mmap(NULL, fileStat.st_size, PROT_READ, MAP_PRIVATE, fp, 0);
+  void* loxFileMap = mmap(NULL, fileStat.st_size, PROT_READ, MAP_PRIVATE, fp, 0);
 
   if (loxFileMap == MAP_FAILED) {
     std::cerr << "Error mapping file: " << strerror(errno) << std::endl;

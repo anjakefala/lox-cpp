@@ -14,7 +14,9 @@ int main() {
   try {
     ROMmapFile file{"test.lox"};
 
-    std::cout << file.GetContents();
+    for (std::string_view line : file.GetLines()) {
+      std::cout << line << "\n";
+    }
   } catch (std::exception const &e) {
     std::cerr << e.what();
     std::exit(-1);
